@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -33,9 +34,37 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        viewBinding = true
+        buildConfig = true
+    }
 }
 
 dependencies {
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Okhttp
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Glide - Picasso
+    implementation(libs.glide)
+
+    // Viewpager2
+    implementation(libs.androidx.viewpager2)
+
+    // Koin Dependency Injection
+    implementation(libs.koin.android)
+
+    // ViewModel dan LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
