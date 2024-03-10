@@ -1,20 +1,18 @@
-package com.aryanto.githubfinal.ui.activity.home
+package com.aryanto.githubfinal.ui.fragment.following
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aryanto.githubfinal.data.model.Item
 import com.aryanto.githubfinal.databinding.ItemBinding
-import com.aryanto.githubfinal.ui.activity.detail.DetailActivity
 import com.bumptech.glide.Glide
 
-class HomeAdapter(
+class FollowingAdapter(
     private var users: List<Item>
-) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
-    class HomeViewHolder(private val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.Adapter<FollowingAdapter.FollowingViewHolder>() {
+    class FollowingViewHolder(private val binding: ItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(user: Item) {
             binding.apply {
                 tViewPerson.text = user.login
@@ -23,31 +21,25 @@ class HomeAdapter(
                     .load(user.avatar_url)
                     .into(iViewPerson)
 
-                root.setOnClickListener {
-                    val intent = Intent(root.context, DetailActivity::class.java)
-                    intent.putExtra("username", user.login)
-                    root.context.startActivity(intent)
-                    Log.d("GAF-HA User clicked: ", "$user")
-                }
             }
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowingViewHolder {
         val binding = ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeViewHolder(binding)
+        return FollowingViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return users.size
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FollowingViewHolder, position: Int) {
         holder.bind(users[position])
     }
 
-    fun updateList(newList: List<Item>) {
+    fun updateListFollowing(newList: List<Item>) {
         val diffResult = DiffUtil.calculateDiff(myDiffCallBack(users, newList))
         users = newList
         diffResult.dispatchUpdatesTo(this)
@@ -74,7 +66,6 @@ class HomeAdapter(
                 ): Boolean {
                     return oldList[oldItemPosition] == newList[newItemPosition]
                 }
-
 
             }
     }

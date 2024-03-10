@@ -8,7 +8,8 @@
     <string name="count">0</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
-    <string name="no_followers">No followers</string>
+    <string name="no_followers">No user followed</string>
+    <string name="no_following">You not following yet</string>
 
 
     <string name="tab_label_for_followers_and_following">Tab label for followers and following</string>
@@ -16,5 +17,7 @@
     <string name="logo_image_detail_user">Logo image detail user</string>
     <string name="logo_image_user_followers">Logo image user followers</string>
     <string name="logo_image_user_following">Logo image user following</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
