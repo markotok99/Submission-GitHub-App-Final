@@ -2,6 +2,7 @@ package com.aryanto.githubfinal.ui.activity.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,12 +28,13 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             homeVM.getAllUsers()
         }
 
         setAdapter()
         setView()
+        setSearch()
 
     }
 
@@ -46,18 +48,38 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setView() {
         binding.apply {
-            homeVM.users.observe(this@HomeActivity){result->
-                when(result){
+            homeVM.users.observe(this@HomeActivity) { result ->
+                when (result) {
                     is ClientState.Success -> {
                         pBarHome.visibility = View.GONE
                         result.data.let { homeAdapter.updateList(it) }
                     }
+
                     is ClientState.Error -> {
                         pBarHome.visibility = View.GONE
                     }
+
                     is ClientState.Loading -> {
                         pBarHome.visibility = View.VISIBLE
                     }
+                }
+            }
+        }
+    }
+
+    private fun setSearch() {
+        binding.apply {
+            materialSearchView.setupWithSearchBar(materialSearchBar)
+            materialSearchView.editText.setOnEditorActionListener { textView, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val query = textView.text.toString()
+                    query.let {
+                        homeVM.searchUser(it)
+                    }
+                    materialSearchView.hide()
+                    true
+                } else {
+                    false
                 }
             }
         }

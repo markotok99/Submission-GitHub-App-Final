@@ -34,7 +34,34 @@ class HomeVM(
                 Log.e("GAF-HVM", errorMSG, e)
                 _users.postValue(ClientState.Error(errorMSG))
             }
+
         }
     }
+
+    fun searchUser(query: String) {
+        viewModelScope.launch {
+            _users.postValue(ClientState.Loading)
+
+            try {
+                val response = apiService.searchUser(query)
+
+                if (response.isSuccessful) {
+                    _users.postValue(
+                        ClientState.Success(
+                            response.body()?.items ?: throw IllegalAccessException("Body is null")
+                        )
+                    )
+                } else {
+                    throw IllegalAccessException("Data response fail")
+                }
+            } catch (e: Exception) {
+                val errorMSG = "${e.message}"
+                Log.e("GAF-HVM", errorMSG, e)
+                _users.postValue(ClientState.Error(errorMSG))
+            }
+
+        }
+    }
+
 
 }
