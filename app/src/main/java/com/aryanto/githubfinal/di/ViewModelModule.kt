@@ -8,7 +8,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    single { HomeVM(get()) }
+    single { HomeVM(get(), get()) }
     single { DetailVM(get()) }
     single { FollowersVM(get()) }
     single { FollowingVM(get()) }

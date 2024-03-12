@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.aryanto.githubfinal.databinding.ActivitySplashBinding
 import com.aryanto.githubfinal.ui.activity.home.HomeActivity
+import com.aryanto.githubfinal.ui.activity.home.HomeVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+    private val homeVM: HomeVM by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,6 +28,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         showWelcome()
+        darkMode()
     }
 
     private fun showWelcome() {
@@ -47,6 +52,16 @@ class SplashActivity : AppCompatActivity() {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
+            }
+        }
+    }
+
+    private fun darkMode() {
+        homeVM.isDarkMode.observe(this) { isActive ->
+            if (isActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }

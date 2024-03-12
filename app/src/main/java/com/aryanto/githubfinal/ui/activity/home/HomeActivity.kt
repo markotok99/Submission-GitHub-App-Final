@@ -1,15 +1,18 @@
 package com.aryanto.githubfinal.ui.activity.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryanto.githubfinal.R
 import com.aryanto.githubfinal.databinding.ActivityHomeBinding
+import com.aryanto.githubfinal.ui.activity.setting.SettingActivity
 import com.aryanto.githubfinal.utils.ClientState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,6 +38,8 @@ class HomeActivity : AppCompatActivity() {
         setAdapter()
         setView()
         setSearch()
+        setMenu()
+
 
     }
 
@@ -47,9 +52,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setView() {
+
         binding.apply {
             homeVM.users.observe(this@HomeActivity) { result ->
                 when (result) {
+
                     is ClientState.Success -> {
                         pBarHome.visibility = View.GONE
                         result.data.let { homeAdapter.updateList(it) }
@@ -65,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun setSearch() {
@@ -84,5 +92,29 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setMenu() {
+        binding.apply {
+            materialSearchBar.inflateMenu(R.menu.main_menu)
+            materialSearchBar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.action_settings -> {
+                        menuSetting()
+                        true
+                    }
+
+                    else -> {
+                        false
+                    }
+                }
+            }
+        }
+    }
+
+    private fun menuSetting() {
+        val intent = Intent(this, SettingActivity::class.java)
+        startActivity(intent)
+    }
+
 
 }

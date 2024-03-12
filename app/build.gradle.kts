@@ -57,12 +57,16 @@ dependencies {
 
     // Glide - Picasso
     implementation(libs.glide)
+    implementation(libs.picasso)
 
     // Viewpager2
     implementation(libs.androidx.viewpager2)
 
     // Koin Dependency Injection
     implementation(libs.koin.android)
+
+    // Datastore
+    implementation(libs.androidx.datastore.preferences)
 
     // ViewModel dan LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)

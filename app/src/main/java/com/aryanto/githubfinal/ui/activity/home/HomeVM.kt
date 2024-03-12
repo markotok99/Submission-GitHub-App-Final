@@ -4,18 +4,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.aryanto.githubfinal.data.model.Item
 import com.aryanto.githubfinal.data.remote.network.ApiService
 import com.aryanto.githubfinal.utils.ClientState
+import com.aryanto.githubfinal.utils.ThemePref
 import kotlinx.coroutines.launch
 
 class HomeVM(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val themePref: ThemePref
 ) : ViewModel() {
 
     private val _users = MutableLiveData<ClientState<List<Item>>>()
     val users: LiveData<ClientState<List<Item>>> = _users
+
+    val isDarkMode: LiveData<Boolean> = themePref.getThemeSetting().asLiveData()
 
     fun getAllUsers() {
         viewModelScope.launch {
@@ -63,5 +68,10 @@ class HomeVM(
         }
     }
 
+    fun setDarkMode(isDarkMode: Boolean) {
+        viewModelScope.launch {
+            themePref.saveThemeSetting(isDarkMode)
+        }
+    }
 
 }
