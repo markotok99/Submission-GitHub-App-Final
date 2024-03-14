@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryanto.githubfinal.R
 import com.aryanto.githubfinal.databinding.ActivityHomeBinding
+import com.aryanto.githubfinal.ui.activity.favorite.FavoriteActivity
 import com.aryanto.githubfinal.ui.activity.setting.SettingActivity
 import com.aryanto.githubfinal.utils.ClientState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -99,6 +100,11 @@ class HomeActivity : AppCompatActivity() {
             materialSearchBar.inflateMenu(R.menu.main_menu)
             materialSearchBar.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+                    R.id.action_favorite -> {
+                        menuFavorite()
+                        true
+                    }
+
                     R.id.action_settings -> {
                         menuSetting()
                         true
@@ -114,6 +120,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun menuSetting() {
         val intent = Intent(this, SettingActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun menuFavorite() {
+        val intent = Intent(this, FavoriteActivity::class.java)
         startActivity(intent)
     }
 

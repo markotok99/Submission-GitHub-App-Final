@@ -5,13 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aryanto.githubfinal.data.local.Favorite
+import com.aryanto.githubfinal.data.local.FavoriteDAO
+import com.aryanto.githubfinal.data.local.FavoriteDB
 import com.aryanto.githubfinal.data.model.ItemDetail
 import com.aryanto.githubfinal.data.remote.network.ApiService
 import com.aryanto.githubfinal.utils.ClientState
 import kotlinx.coroutines.launch
 
 class DetailVM(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val favoriteDAO: FavoriteDAO
 ) : ViewModel() {
     private val _detailUser = MutableLiveData<ClientState<List<ItemDetail>>>()
     val detailUser: LiveData<ClientState<List<ItemDetail>>> = _detailUser
@@ -37,4 +41,31 @@ class DetailVM(
             }
         }
     }
+
+    fun isUserFavorite(login: String): LiveData<Boolean>{
+        val isFavorite = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            isFavorite.postValue(favoriteDAO.isFavorite(login) != null)
+        }
+        return isFavorite
+    }
+
+    fun addUserFavorite(favorite: Favorite){
+        viewModelScope.launch {
+            val existFavorite = favoriteDAO.isFavorite(favorite.login)
+            if (existFavorite == null){
+                favoriteDAO.addFavorite(favorite)
+            }
+        }
+    }
+
+    fun deleteFavorite(favorite: Favorite){
+        viewModelScope.launch {
+            val existsFavorite = favoriteDAO.isFavorite(favorite.login)
+            if (existsFavorite != null){
+                favoriteDAO.deleteFavorite(existsFavorite)
+            }
+        }
+    }
+
 }
