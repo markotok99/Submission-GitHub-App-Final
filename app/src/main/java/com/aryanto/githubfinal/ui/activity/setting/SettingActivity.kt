@@ -25,23 +25,31 @@ class SettingActivity : AppCompatActivity() {
             insets
         }
 
-        settingVM.isDarkMode.observe(this) { isActive ->
-            if (isActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        setView()
+
+    }
+
+    private fun setView() {
+        binding.apply {
+
+            settingVM.isDarkMode.observe(this@SettingActivity) { isActive ->
+                if (isActive) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+
+            }
+
+            settingVM.isDarkMode.observe(this@SettingActivity) {
+                switchTheme.isChecked = it
+            }
+
+            switchTheme.setOnCheckedChangeListener { _, isChecked ->
+                settingVM.setDarkMode(isChecked)
             }
 
         }
-
-        settingVM.isDarkMode.observe(this) {
-            binding.switchTheme.isChecked = it
-        }
-
-        binding.switchTheme.setOnCheckedChangeListener { buttonView, isChecked ->
-            settingVM.setDarkMode(isChecked)
-        }
-
     }
 
 

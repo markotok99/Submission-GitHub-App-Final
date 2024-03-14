@@ -39,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
         setView()
         setSearch()
         setMenu()
+        darkMode()
 
 
     }
@@ -116,5 +117,14 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun darkMode() {
+        homeVM.isDarkMode.observe(this) { isActive ->
+            if (isActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+    }
 
 }
