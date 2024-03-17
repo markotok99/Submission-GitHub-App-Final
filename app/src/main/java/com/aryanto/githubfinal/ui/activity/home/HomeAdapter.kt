@@ -27,7 +27,7 @@ class HomeAdapter(
                     val intent = Intent(root.context, DetailActivity::class.java)
                     intent.putExtra("username", user.login)
                     root.context.startActivity(intent)
-                    Log.d("GAF-HA User clicked: ", "$user")
+                    Log.d("GHF-HA User clicked: ", "$user")
                 }
             }
         }

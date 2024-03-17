@@ -36,7 +36,7 @@ class HomeVM(
                 }
             } catch (e: Exception) {
                 val errorMSG = "${e.message}"
-                Log.e("GAF-HVM", errorMSG, e)
+                Log.e("GHF-HVM", errorMSG, e)
                 _users.postValue(ClientState.Error(errorMSG))
             }
 
@@ -61,7 +61,7 @@ class HomeVM(
                 }
             } catch (e: Exception) {
                 val errorMSG = "${e.message}"
-                Log.e("GAF-HVM", errorMSG, e)
+                Log.e("GHF-HVM", errorMSG, e)
                 _users.postValue(ClientState.Error(errorMSG))
             }
 

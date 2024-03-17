@@ -33,11 +33,11 @@ class DetailVM(
                 } else {
                     throw IllegalAccessException("${response.body()?.toString()}")
                 }
-                Log.d("GH-DVM", "API Response: ${response.body().toString()}")
+                Log.d("GHF-DVM", "API Response: ${response.body().toString()}")
             } catch (e: Exception) {
                 val errorMSG = "${e.message}"
                 _detailUser.postValue(ClientState.Error(errorMSG))
-                Log.e("GH-DVM Get Detail User: ", errorMSG, e)
+                Log.e("GHF-DVM Get Detail User: ", errorMSG, e)
             }
         }
     }

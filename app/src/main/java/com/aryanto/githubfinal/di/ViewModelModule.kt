@@ -9,9 +9,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    single { HomeVM(get(), get()) }
-    single { DetailVM(get(), get()) }
-    single { FollowersVM(get()) }
-    single { FollowingVM(get()) }
-    single { FavoriteVM(get()) }
+    viewModel { HomeVM(get(), get()) }
+    viewModel { DetailVM(get(), get()) }
+    viewModel { FollowersVM(get()) }
+    viewModel { FollowingVM(get()) }
+    viewModel { FavoriteVM(get()) }
 }

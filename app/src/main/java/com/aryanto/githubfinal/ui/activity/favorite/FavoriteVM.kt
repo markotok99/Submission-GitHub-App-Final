@@ -23,11 +23,11 @@ class FavoriteVM(
             try {
                 val favoriteList = favoriteDAO.getAllFavorite()
                 _favorites.postValue(ClientState.Success(favoriteList))
-                Log.d("GAF-FVM", "Loaded ${favoriteList.size} favorites")
+                Log.d("GHF-FVM", "Loaded ${favoriteList.size} favorites")
 
             } catch (e: Exception) {
                 val errorMSG = "${e.message}"
-                Log.e("GAF-FVM", "Error loading favorites", e)
+                Log.e("GHF-FVM", "Error loading favorites", e)
                 _favorites.postValue(ClientState.Error(errorMSG))
             }
         }

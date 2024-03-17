@@ -30,7 +30,7 @@ class FollowingVM(
             } catch (e: Exception) {
                 val errorMSG = "${e.message}"
                 _following.postValue(ClientState.Error(errorMSG))
-                Log.e("GAF-FVM following: ", errorMSG, e)
+                Log.e("GHF-FVM following: ", errorMSG, e)
             }
 
         }
